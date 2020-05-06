@@ -1,0 +1,108 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <a mat-button (click)="onBack()">&lt; Back</a>
+  <form [formGroup]="form" (submit)="onSave()" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="componentMode === getModeCreate()">
+            <input type="text" matInput placeholder="Creator" [value]="userName" disabled>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type" required>
+              <mat-option *ngFor="let item of types" [value]="item.id">
+                {{item.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('type').hasError('required')">Please select a Type.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Created Date" [value]="dateCreated" disabled>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Classification</mat-label>
+            <mat-select formControlName="classification" required>
+              <mat-option *ngFor="let item of classifications" [value]="item.id">
+                {{item.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('classification').hasError('required')">Please select a Classification.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Project</mat-label>
+            <mat-select formControlName="project" required>
+              <mat-option *ngFor="let item of projects" [value]="item.id">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('project').hasError('required')">Please select a Project.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Severity</mat-label>
+            <mat-select formControlName="severity" required>
+              <mat-option *ngFor="let item of severities" [value]="item.id">
+                {{item.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('severity').hasError('required')">Please select a Severity.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <textarea matInput rows="rowNumber" formControlName="case" placeholder="Case"
+              maxlength="255" required ></textarea>
+            <mat-error *ngIf="form.get('case').invalid" >Please enter a case.</mat-error >
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <textarea matInput rows="rowNumber" formControlName="impact" placeholder="Impact"
+              maxlength="255" required ></textarea>
+            <mat-error *ngIf="form.get('impact').invalid" >Please enter an impact.</mat-error >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <textarea matInput rows="rowNumber" formControlName="remidiation" placeholder="Remidiation"
+              maxlength="255" required ></textarea>
+            <mat-error *ngIf="form.get('remidiation').invalid" >Please enter a remidiation.</mat-error >
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <textarea matInput rows="rowNumber" formControlName="lesson" placeholder="Lesson"
+              maxlength="255" required ></textarea>
+            <mat-error *ngIf="form.get('lesson').invalid" >Please enter a lesson.</mat-error >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right">
+          <button mat-raised-button color="primary" type="submit">
+            Save
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

@@ -1,0 +1,85 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <a mat-button (click)="onBack()">&lt; Back</a>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field >
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role" required>
+              <mat-option *ngFor="let item of roles" [value]="item.key">
+                {{item.value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('role').hasError('required')">Please select a Code.</mat-error>
+          </mat-form-field>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input type="text" matInput formControlName="user" placeholder="Username" required>
+            <mat-hint *ngIf="componentMode !== getModeCreate()" align="start"><strong>Username is not editable.</strong> </mat-hint>
+            <mat-error *ngIf="form.get('user').hasError('required')">Please enter a Username.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input type="text" (keypress)="numberOnly($event)" matInput formControlName="empId" placeholder="Employee Id" required>
+            <mat-error *ngIf="form.get('empId').hasError('required')">Please enter an Employee Id.</mat-error>
+            <mat-error *ngIf="form.get('empId').invalid && !form.get('empId').hasError('required') ">
+              Minimum length is 6.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="componentMode !== getModeCreate()"></td>
+        <td *ngIf="componentMode === getModeCreate()">
+          <mat-form-field>
+            <input type="text" matInput formControlName="password" placeholder="Password"
+              [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('password').hasError('required')">Please enter a Password.</mat-error>
+            <mat-error *ngIf="!form.get('password').hasError('required')">Minimum length is 6.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input type="email" (keypress)="emailOnly($event)" matInput formControlName="email" placeholder="Email" required>
+            <mat-error *ngIf="form.get('email').hasError('required')">Please enter an Email.</mat-error>
+            <mat-error *ngIf="!form.get('email').hasError('required')">Use a valid email.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="componentMode !== getModeCreate()"></td>
+        <td *ngIf="componentMode === getModeCreate()">
+          <mat-form-field>
+            <input type="text" matInput formControlName="confirm" placeholder="Confirm Password"
+              [type]="hideConfirm ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hideConfirm = !hideConfirm">
+                {{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('confirm').hasError('required')">Please confirm password.</mat-error>
+            <mat-error *ngIf="form.get('confirm').hasError('mustMatch')">Password does not match.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input type="text" matInput formControlName="name" placeholder="Display Name">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right">
+          <button mat-raised-button color="primary" type="button" (click)="onSave()">
+            Save
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

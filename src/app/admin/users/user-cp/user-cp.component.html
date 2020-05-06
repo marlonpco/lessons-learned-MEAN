@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <a mat-button (click)="onBack()">&lt; Back</a>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td *ngIf="componentMode !== getModeCreate()">
+          <mat-form-field>
+            <input type="text" matInput formControlName="oldPassword" placeholder="Old Password"
+              [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('password').hasError('required')">Please enter an old Password.</mat-error>
+            <mat-error *ngIf="!form.get('password').hasError('required')">Minimum length is 6.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="componentMode !== getModeCreate()">
+          <mat-form-field>
+            <input type="text" matInput formControlName="password" placeholder="Password"
+              [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('password').hasError('required')">Please enter a Password.</mat-error>
+            <mat-error *ngIf="!form.get('password').hasError('required')">Minimum length is 6.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="componentMode !== getModeCreate()">
+          <mat-form-field>
+            <input type="text" matInput formControlName="confirm" placeholder="Confirm Password"
+              [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('confirm').hasError('required')">Please confirm password.</mat-error>
+            <mat-error *ngIf="form.get('confirm').hasError('mustMatch')">Password does not match.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">
+          <button mat-raised-button color="primary" type="button" (click)="onChangePassword()">
+            Change Password
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

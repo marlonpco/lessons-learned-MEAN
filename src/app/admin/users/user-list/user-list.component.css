@@ -1,0 +1,57 @@
+mat-card {
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+mat-expansion-panel{
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 83%;
+}
+
+table {
+  margin-top: 16px;
+  width: 100%;
+}
+
+th {
+  font-weight: 600;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+td{
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.search-button{
+  width: 80px
+}
+
+mat-form-field{
+  align-content: center;
+  width: 70%;
+}
+
+.action-def{
+  width: 100px;
+}
+
+.content-def{
+  text-align: center;
+}

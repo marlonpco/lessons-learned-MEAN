@@ -1,0 +1,67 @@
+<mat-card *ngIf="isUserAuthenticated" >
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div *ngIf="!isLoading" align="right">
+    <button mat-raised-button class="search-button" type="button" routerLink="/admin/clients/create">Add</button>
+  </div>
+  <table
+    mat-table
+    *ngIf="!isLoading"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="name">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Client Name</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Description</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        class="action-def"
+        align="center"
+        mat-cell
+        fxLayout="column wrap"
+        *matCellDef="let element"
+      >
+        <button
+          *ngIf="isUserAuthenticated && isUpdateOn"
+          mat-mini-fab
+          color="primary"
+          (click)="onEdit(element.id)"
+          style="margin-right: 8px;">
+        <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          *ngIf="isUserAuthenticated && isAdmin && isDeleteOn"
+          mat-mini-fab
+          color="warn"
+          (click)="onDelete(element.id)" >
+        <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="totalClients"
+    [pageSize]="clientsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+  ></mat-paginator>
+</mat-card>
+
+<p class="info-text mat-body-1" *ngIf="!isUserAuthenticated">
+  You shouldn't be here.
+</p>

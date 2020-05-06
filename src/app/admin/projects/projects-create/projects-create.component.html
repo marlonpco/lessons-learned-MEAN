@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <a mat-button (click)="onBack()">&lt; Back</a>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input type="text" matInput formControlName="name" placeholder="Name" required>
+            <mat-error *ngIf="form.get('name').hasError('required')">Please enter a Name.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Area</mat-label>
+            <mat-select formControlName="areaId" required>
+              <mat-option *ngFor="let item of areas" [value]="item.id">
+                {{item.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('areaId').hasError('required')">Please select an Area.</mat-error>
+          </mat-form-field>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Client</mat-label>
+            <mat-select formControlName="clientId" required>
+              <mat-option *ngFor="let item of clients" [value]="item.id">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('clientId').hasError('required')">Please select a Client.</mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Project Phase</mat-label>
+            <mat-select formControlName="phaseId" required>
+              <mat-option *ngFor="let item of phases" [value]="item.id">
+                {{item.description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('phaseId').hasError('required')">Please select a Project Phase.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td align="right">
+          <button mat-raised-button color="primary" type="button" (click)="onSave()">
+            Save
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

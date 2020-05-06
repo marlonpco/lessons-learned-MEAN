@@ -1,0 +1,97 @@
+<form [formGroup]="lessonForm" (ngSubmit)="save()">
+  <div class="main-container">
+    <div style="height: 30px; float: right;">
+      <a href="/">Logout</a>
+    </div>
+    <h3 style="margin-left: 10px;">Add</h3>
+    <div>
+      <alert></alert>
+    </div>
+    <div class="fields-container">
+      <div class="fields-left">
+        <div class="form-rows">
+          <div class="filter-label">
+            Date:
+          </div>
+          <input type="date" class="filter-text" formControlName="date" />
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Project:
+          </div>
+          <select id="projects" class="filter-dropdown" formControlName="project">
+            <option value="" disabled selected>Select value...</option>
+            <option value="project1">Project 1</option>
+            <option value="project2">Project 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Severity:
+          </div>
+          <select id="severities" class="filter-dropdown" formControlName="severity">
+            <option value="" disabled selected>Select value...</option>
+            <option value="severity1">Severity 1</option>
+            <option value="severity2">Severity 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Case:
+          </div>
+          <textarea rows="10" class="filter-textarea" formControlName="case"></textarea>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Impact:
+          </div>
+          <textarea rows="10" class="filter-textarea" formControlName="impact"></textarea>
+        </div>
+      </div>
+      <div class="fields-right">
+        <div class="form-rows">
+          <div class="filter-label">
+            Types:
+          </div>
+          <select id="types" class="filter-dropdown" formControlName="type">
+            <option value="" disabled selected>Select value...</option>
+            <option value="type1">Type 1</option>
+            <option value="type2">Type 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Classification:
+          </div>
+          <select id="classifications" class="filter-dropdown" formControlName="classification">
+            <option value="" disabled selected>Select value...</option>
+            <option value="classification1">Classification 1</option>
+            <option value="classification2">Classification 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Contributor:
+          </div>
+          <input type="text" class="filter-text" formControlName="contributor" />
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Remediation:
+          </div>
+          <textarea rows="10" class="filter-textarea" formControlName="remediation"></textarea>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Lesson:
+          </div>
+          <textarea rows="10" class="filter-textarea" formControlName="lesson"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button type="submit" class="button btn-save" [disabled]="!lessonForm.valid" >Save</button>
+      <button type="button" class="button btn-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,9 @@
+{
+  "env": {
+    "PORT": "3000",
+    "MONGO_ATLAS_USR": "lesson:",
+    "MONGO_ATLAS_PWD": "CcHCOaniXooPU5XO",
+    "MONGO_ATLAS_URI": "@lesson-kompw.gcp.mongodb.net/lessons",
+    "JWT_KEY": "lessons_learned_0.0.1_indra_philippines_delivery_center"
+  }
+}

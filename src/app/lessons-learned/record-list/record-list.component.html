@@ -1,0 +1,119 @@
+<div class="main-container">
+  <div style="height: 30px;">
+    <a style="float: right;" href="/">Logout</a>
+  </div>
+  <div class="filter-container">
+    <h4>Filters</h4>
+    <div class="filters">
+      <div class="filter-left">
+        <div class="form-rows">
+          <div class="filter-label">
+            Project:
+          </div>
+          <select id="projects" class="filter-dropdown">
+            <option value="project1">Project 1</option>
+            <option value="project2">Project 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Case:
+          </div>
+          <input type="text" class="filter-text" />
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Date From:
+          </div>
+          <input type="date" class="filter-text" />
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Date To:
+          </div>
+          <input type="date" class="filter-text" />
+        </div>
+      </div>
+      <div class="filter-right">
+        <div class="form-rows">
+          <div class="filter-label">
+            Classification:
+          </div>
+          <select id="classifications" class="filter-dropdown">
+            <option value="project1">Classification 1</option>
+            <option value="project2">Classification 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Severity:
+          </div>
+          <select id="severities" class="filter-dropdown">
+            <option value="project1">Severity 1</option>
+            <option value="project2">Severity 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Contributor:
+          </div>
+          <select id="contributors" class="filter-dropdown">
+            <option value="project1">Contributor 1</option>
+            <option value="project2">Contributor 2</option>
+          </select>
+        </div>
+        <div class="form-rows">
+          <div class="filter-label">
+            Type:
+          </div>
+          <select id="types" class="filter-dropdown">
+            <option value="project1">Type 1</option>
+            <option value="project2">Type 2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button type="button" class="button btn-create" (click)="createRecord()">Create</button>
+    <button type="button" *ngIf="showModify" class="button btn-modify" (click)="modifyRecord()">Modify</button>
+    <button type="button" *ngIf="showDelete" class="button btn-delete" (click)="deleteRecord()">Delete</button>
+    <button type="button" class="button btn-search" (click)="searchRecord()">Search</button>
+  </div>
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null; recordSelected()"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonsLearned">
+        <th mat-header-cell *matHeaderCellDef> Lessons Learned </th>
+        <td mat-cell *matCellDef="let lessons"> {{lessons.lesson}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="contributor">
+        <th mat-header-cell *matHeaderCellDef> Contributor </th>
+        <td mat-cell *matCellDef="let lessons"> {{lessons.contributor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let lessons"> {{lessons.date}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

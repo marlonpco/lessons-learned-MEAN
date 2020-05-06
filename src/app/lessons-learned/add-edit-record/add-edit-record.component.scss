@@ -1,0 +1,68 @@
+.main-container {
+    width: 95%;
+    height: 95%;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.fields-container {
+    height: 300px;
+    border: solid 1px black;
+    padding-top: 30px;
+    display: grid;
+    grid-auto-flow: column;
+}
+.fields-left {
+    width: 40%;
+}
+.fields-right {
+    width: 40%;
+}
+.form-rows {
+    display: grid;
+    grid-auto-flow: column;
+    text-align: right;
+    margin-bottom: 10px;
+}
+.filter-label {
+    width: 150px;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+.filter-text {
+    width: 200px;
+    border: 1px solid black;
+    height: 25px;
+}
+.filter-dropdown {
+    width: 203px;
+    height: 27px;
+    border: 1px solid black;
+}
+.filter-textarea {
+    width: 197px;
+    border: 1px solid black;
+    height: 27px;
+    resize: none;
+    height: 50px;
+}
+.buttons {
+    margin-top: 10px;
+    float: right;
+}
+.button {
+    height: 30px;
+    width: 100px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.btn-save {
+    background: blue;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+.btn-cancel {
+    background: lightgray;
+    border: 1px solid black;
+    font-weight: bold;
+}

@@ -1,0 +1,45 @@
+mat-card {
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+table {
+  margin-top: 16px;
+  width: 100%;
+}
+
+th {
+  font-weight: 600;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+td{
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.action-def{
+  width: 120px;
+}
+
+.content-def{
+  text-align: center;
+}
+
+button{
+  margin-right: 16px;
+}

@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <a mat-button (click)="onBack()">&lt; Back</a>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field >
+            <mat-label>LOV Type</mat-label>
+            <mat-select formControlName="code" required>
+              <mat-option *ngFor="let item of lovManager" [value]="item.key">
+                {{item.value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('code').hasError('required')">Please select a Code.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input type="text" matInput formControlName="description" placeholder="Description" required>
+            <mat-error *ngIf="form.get('description').hasError('required')">Please enter a Description.</mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">
+          <button mat-raised-button color="primary" type="button" (click)="onSave()">
+            Save
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

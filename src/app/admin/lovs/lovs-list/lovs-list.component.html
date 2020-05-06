@@ -1,0 +1,77 @@
+<mat-card *ngIf="isUserAuthenticated" >
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div *ngIf="!isLoading" align="right">
+    <button mat-raised-button class="search-button" type="button" routerLink="/admin/lovs/create">Add</button>
+  </div>
+  <mat-form-field *ngIf="!isLoading">
+    <mat-label>LOV Type</mat-label>
+    <mat-select [(value)]="activeCode" (selectionChange)="onTypeChange()">
+      <mat-option  >ALL</mat-option>
+      <mat-option *ngFor="let item of lovManager" [value]="item.key">
+        {{item.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <table
+    mat-table
+    *ngIf="!isLoading"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="code">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Code</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.id }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Description</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        class="action-def"
+        align="center"
+        mat-cell
+        fxLayout="column wrap"
+        *matCellDef="let element"
+      >
+        <button
+          *ngIf="isUserAuthenticated && isAdmin && isLOVUpdateOn"
+          mat-mini-fab
+          color="primary"
+          (click)="onEdit(element.id)"
+          style="margin-right: 8px;">
+        <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          *ngIf="isUserAuthenticated && isAdmin && isLOVDeleteOn"
+          mat-mini-fab
+          color="warn"
+          (click)="onDelete(element.id)" >
+        <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="itemsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+  ></mat-paginator>
+</mat-card>
+
+<p class="info-text mat-body-1" *ngIf="!isUserAuthenticated">
+  You shouldn't be here.
+</p>

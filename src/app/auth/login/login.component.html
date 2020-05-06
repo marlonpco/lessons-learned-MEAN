@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onLogin()" *ngIf="!isLoading">
+    <table>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              formControlName="user"
+              placeholder="Username"
+              required
+            />
+            <mat-error *ngIf="form.get('user').invalid"
+              >Please enter a username.</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              formControlName="pwd"
+              placeholder="Password"
+              [type]="hidePassword ? 'password' : 'text'" required>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+              {{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="form.get('pwd').invalid"
+              >Please enter a password.</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">
+          <mat-checkbox *ngIf="isSignUpOn" style="margin-right: 32px;" formControlName="signup">Sign up</mat-checkbox>
+          <button mat-raised-button color="primary" type="submit">
+            {{ this.form.get('signup').value ? 'Sign up' : 'Login' }}
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</mat-card>

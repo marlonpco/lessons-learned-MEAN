@@ -1,0 +1,49 @@
+.main-container {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.login-fields {
+    display: table-cell;
+    vertical-align: middle;
+    width: fit-content;
+}
+.form-rows {
+    margin-left: 30%;
+    height: 50px;
+    display: grid;
+    grid-auto-flow: column;
+    width: 40%;
+    margin-bottom: 10px;
+}
+.login-label {
+    width: 100px;
+    padding-top: 12px;
+}
+.login-textbox {
+    width: 300px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+.button-holder {
+    margin-left: 50%;
+}
+.login-button {
+    background-color: white;
+    border: 2px solid gray;
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.login-button:hover {background-color: #e7e7e7;}
+.login-button:active {
+    background-color: darkgray;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

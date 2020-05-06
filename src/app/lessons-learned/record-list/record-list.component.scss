@@ -1,0 +1,102 @@
+.main-container {
+    height: 95%;
+    width: 95%;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.filter-container {
+    height: 200px;
+    border: solid 1px black;
+    padding-left: 10px;
+}
+.filters {
+    display: grid;
+    grid-auto-flow: column;
+}
+.filter-left {
+    width: 40%;
+}
+.filter-right {
+    width: 40%;
+}
+.form-rows {
+    display: grid;
+    grid-auto-flow: column;
+    text-align: right;
+    margin-bottom: 5px;
+}
+.filter-label {
+    width: 150px;
+    padding-top: 5px;
+    padding-right: 5px;
+}
+.filter-text {
+    width: 200px;
+    border: 1px solid black;
+    height: 25px;
+}
+.filter-dropdown {
+    width: 202px;
+    height: 29px;
+    border: 1px solid black;
+}
+.buttons {
+    margin-top: 10px;
+}
+.button {
+    height: 30px;
+    width: 100px;
+    margin-right: 10px;
+    border-radius: 5px;
+    
+}
+.btn-create {
+    background: limegreen;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+.btn-delete {
+    background: red;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+.btn-search {
+    float: right;
+    background: dodgerblue;
+    border: 1px solid black;
+    color: white;
+    font-weight: bold;
+}
+.btn-modify {
+    background: orange;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+.table-container {
+    margin-top: 10px;
+}
+table {
+    width: 100%;
+    border: 1px solid lightgray;
+}
+th {
+    background-color: #e0e0e0;
+    color: black;
+}
+th.mat-header-cell {
+    border-right: 1px solid lightgray;
+    text-align: center;
+}
+td.mat-cell {
+    border-right: 1px solid lightgray;
+    text-align: center;
+}
+td.mat-cell:first-child, th.mat-header-cell:first-child {
+    border-right: none;
+}
+input[type="date"] {
+    align-items: unset;
+}

@@ -1,0 +1,193 @@
+<!-- <p class="info-text mat-body-1" *ngIf="totalLessons <= 0 && !isLoading">
+  No lessons posted yet! Try adding new
+  <a *ngIf="isUserAuthenticated" routerLink="/lessons/create">Lessons</a>
+  {{ isUserAuthenticated ? "!" : "Lessons!" }}
+</p> -->
+
+<mat-accordion *ngIf="isUserAuthenticated">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filters
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form">
+      <table>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Project</mat-label>
+              <mat-select formControlName="project" >
+                <mat-option *ngFor="let item of projects" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                formControlName="lesson"
+                placeholder="Lesson"
+                maxlength="50"
+              />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type" >
+                <mat-option *ngFor="let item of types" [value]="item.id">
+                  {{item.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Reported date from:</mat-label>
+              <input matInput formControlName="dateFrom" [matDatepicker]="pickerFrom" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFrom"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Classification</mat-label>
+              <mat-select formControlName="classification" >
+                <mat-option *ngFor="let item of classifications" [value]="item.id">
+                  {{item.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Reported date to:</mat-label>
+              <input matInput formControlName="dateTo" [matDatepicker]="pickerTo" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerTo"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Severity</mat-label>
+              <mat-select formControlName="severity" >
+                <mat-option *ngFor="let item of severities" [value]="item.id">
+                  {{item.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+
+          </td>
+          <td align="right">
+            <button mat-raised-button class="search-button" type="button" style="margin-right: 8px;" routerLink="/lessons/create">Add</button>
+            <button mat-raised-button class="search-button" type="button" style="margin-right: 8px;" color="primary" (click)="onSearch()" >Search</button>
+            <button mat-raised-button class="search-button" type="button" color="warn" (click)="onClear()" >Clear</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-card >
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <table
+    mat-table
+    *ngIf="!isLoading"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="lesson">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Lesson</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.lesson }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="case">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Case</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.case }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="impact">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Impact</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.impact }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="remidiation">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Remidiation</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.remidiation }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationDate">
+      <th class="content-def" mat-header-cell *matHeaderCellDef>Creation Date</th>
+      <td class="content-def" mat-cell fxLayout="column wrap" *matCellDef="let element">
+        {{ element.creationDate }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td
+        class="action-def"
+        align="center"
+        mat-cell
+        fxLayout="column wrap"
+        *matCellDef="let element"
+      >
+        <button
+          *ngIf="isUserAuthenticated && authUserId === element.creator._id"
+          mat-mini-fab
+          color="primary"
+          (click)="onEdit(element.id)"
+          style="margin-right: 8px;" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          *ngIf="isUserAuthenticated && isAdmin"
+          mat-mini-fab
+          color="warn"
+          (click)="onDelete(element.id)" >
+        <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="totalLessons"
+    [pageSize]="lessonsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangedPage($event)"
+  ></mat-paginator>
+</mat-card>

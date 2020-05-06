@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+  <span>
+    <a mat-button routerLink="/lessons/list">
+      <mat-icon matSuffix>history</mat-icon> Lessons Learned
+    </a>
+  </span>
+
+  <button mat-button [matMenuTriggerFor]="menu">Lesson</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/lessons/list">
+      {{ isUserAuthenticated ? "Search Lessons" : "View Lessons" }}
+    </button>
+    <button
+      *ngIf="isUserAuthenticated"
+      mat-menu-item
+      routerLink="/lessons/create"
+    >
+      Create Lesson
+    </button>
+  </mat-menu>
+
+  <button *ngIf="isUserAuthenticated && isAdmin" mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
+  <mat-menu #adminMenu="matMenu">
+    <button *ngIf="isUserAuthenticated" mat-menu-item routerLink="/admin/users/list">
+      Users
+    </button>
+    <button *ngIf="isUserAuthenticated" mat-menu-item routerLink="/admin/projects/list">
+      Projects
+    </button>
+    <button *ngIf="isUserAuthenticated" mat-menu-item routerLink="/admin/clients/list">
+      Clients
+    </button>
+    <button *ngIf="isUserAuthenticated" mat-menu-item routerLink="/admin/teams/list">
+      Teams
+    </button>
+    <button *ngIf="isUserAuthenticated" mat-menu-item routerLink="/admin/lovs/list">
+      LOVs
+    </button>
+  </mat-menu>
+
+  <span class="spacer"></span>
+
+  <ul>
+    <li *ngIf="!isUserAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="activeLink"
+        >Login</a
+      >
+    </li>
+    <li *ngIf="isUserAuthenticated">
+      <button style="pointer-events: none;" mat-button>Signed in as {{ userDisplayName }}</button>
+
+      <button mat-button [matMenuTriggerFor]="logoutMenu">
+        <mat-icon matSuffix >account_circle</mat-icon>
+      </button>
+
+      <mat-menu #logoutMenu="matMenu">
+        <button mat-menu-item routerLink="/admin/users/changepwd">Change Password</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+      </mat-menu>
+
+    </li>
+  </ul>
+</mat-toolbar>
