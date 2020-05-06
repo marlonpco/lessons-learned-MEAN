@@ -37,13 +37,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   private filters: UserSearch;
 
-  // Onesait connection config and client initialization
-  private config = {"url":"https://lab.onesaitplatform.com/iot-broker/message", "token":"457ee933040441b5ac5198e17796594a", "deviceTemplate": "Lessons Learned PH", "device":"Web2"}; //Ontology: AirQuality
-  private client: OPClient = new OPClient();
-
-  // Change later to Users
-  private users2: Users2[];
-
   constructor(
     private _userService: UserService,
     private _authService: AuthService,
@@ -63,30 +56,16 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.totalUsers = userData.count;
       });
 
-      this.isDeleteOn = this._authService.isDeleteOn();
-      this.isUpdateOn = this._authService.isUpdateOn();
-      this.isAdmin = this._authService.isAdmin();
-      this.isUserAuthenticated = this._authService.getIsAuthenticated();
-      this.authSubscription = this._authService.getAuthStatusListener().subscribe(
-        isAuthenticated => {
-          this.isUserAuthenticated = isAuthenticated;
-          this.isAdmin = this._authService.isAdmin();
-        }
-      );
-    
-    // Connection to Onesait
-    this.client.configure(this.config);
-    this.client.connect();
-
-    this.client.join().then(response => {
-      console.log("par -> " + JSON.stringify(response));
-    })
-  }
-
-  // Data from onesait
-  getUsers2() {
-    this.users2 = this._userService.getUsers2(this.client);
-    console.log(this.users2);
+    this.isDeleteOn = this._authService.isDeleteOn();
+    this.isUpdateOn = this._authService.isUpdateOn();
+    this.isAdmin = this._authService.isAdmin();
+    this.isUserAuthenticated = this._authService.getIsAuthenticated();
+    this.authSubscription = this._authService.getAuthStatusListener().subscribe(
+      isAuthenticated => {
+        this.isUserAuthenticated = isAuthenticated;
+        this.isAdmin = this._authService.isAdmin();
+      }
+    );
   }
 
   ngOnDestroy(){

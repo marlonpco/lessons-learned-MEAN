@@ -15,8 +15,6 @@ const BACKEND_URL = environment.apiUrl + "/auth/";
 @Injectable({ providedIn: "root" })
 export class UserService{
   private users: Users[] = [];
-  // njbuco change later to users
-  private users2: Users2[] = [];
   private usersUpdated = new Subject<{ users: Users[]; count: number }>();
 
   private preloadedData: Users[] = [];
@@ -26,21 +24,6 @@ export class UserService{
     private _router: Router,
     private _authService: AuthService
   ){}
-
-  // njbuco fetch data from onesait
-  getUsers2(client: OPClient): Users2[] {
-    let context = this;
-    client.query("LL_USER", "db.LL_USER.find()", 'NATIVE').then(response => {
-      for (let data of response.body.data) {
-        context.users2.push({
-          "id": data.LL_USER.SN_ID,
-          "username": data.LL_USER.MS_USERNAME,
-          "password": data.LL_USER.MS_PASSWORD,
-        })
-      }
-    });
-    return this.users2;
-  }
 
   createUser(user: Users, auth: {user: string, password: string, role: string}) {
     const authUser = {
@@ -90,15 +73,15 @@ export class UserService{
   getUsers(usersPerPage: number, currentPage: number, filters: UserSearch) {
     let queryParams = `?pagesize=${usersPerPage}&page=${currentPage}`;
     if(filters.empId !== null){
-      queryParams = queryParams + `&empId=${filters.empId}`
+      queryParams += `&empId=${filters.empId}`
     }
 
     if(filters.email !== null){
-      queryParams = queryParams + `&email=${filters.email}`
+      queryParams += `&email=${filters.email}`
     }
 
     if(filters.user !== null){
-      queryParams = queryParams + `&user=${filters.user}`
+      queryParams += `&user=${filters.user}`
     }
 
     this._http
